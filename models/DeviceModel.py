@@ -1,7 +1,7 @@
 from db import db
 
 
-class Device(db.Model):
+class DeviceModel(db.Model):
     __tablename__ = 'device'
 
     id = db.Column(db.Integer, primary_key=True)

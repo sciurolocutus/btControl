@@ -5,9 +5,9 @@ class DeviceModel(db.Model):
     __tablename__ = 'device'
 
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.string(80))  # human-given nickname
-    name = db.Column(db.string(80))  # reported name
-    addr = db.Column(db.string(80), nullable=False, unique=True)  # mac addr
+    nickname = db.Column(db.String(80))  # human-given nickname
+    name = db.Column(db.String(80))  # reported name
+    addr = db.Column(db.String(80), nullable=False, unique=True)  # mac addr
 
     def __init__(self, nickname, name, addr):
         self.nickname = nickname
@@ -33,3 +33,7 @@ class DeviceModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_all(cls):
+        return cls.query()

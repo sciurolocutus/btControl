@@ -4,8 +4,9 @@ from flask_jwt import JWT
 
 from db import db
 from exceptions.ValidationException import ValidationException
-from resources import Control, Profile, Device
-from resources.Device import DeviceList
+#from resources.Control import Control
+from resources.Profile import Profile
+from resources.Device import DeviceList, Device
 from resources.user import UserRegister
 from security import authenticate, identity
 
@@ -40,7 +41,7 @@ def add_cors_header(response):
 
 #api.add_resource(SinkList, '/sinks')
 #api.add_resource(HubList, '/hubs')  #for when I've got multi-device synchronized playing. For now, only report the self.
-api.add_resource(Control, '/control')  #For starting/stopping connections
+#api.add_resource(Control, '/control')  #For starting/stopping connections
 
 
 api.add_resource(DeviceList, '/devices')

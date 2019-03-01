@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class DeviceAction(Enum):
+class ControlAction(Enum):
     RECONNECT = 'reconnect'
     START = 'start'
     STOP = 'stop'

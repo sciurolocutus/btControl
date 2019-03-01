@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify
 from flask_restful import Api
 from flask_jwt import JWT
 
+from adapters.ErsatzBluetoothAdapter import ErsatzBluetoothAdapter
 from db import db
 from exceptions.ValidationException import ValidationException
-#from resources.Control import Control
+from resources.Control import Control
+from resources.Device import DeviceList, DeviceScan, Device
 from resources.Profile import Profile
-from resources.Device import DeviceList, Device
 from resources.user import UserRegister
 from security import authenticate, identity
 
@@ -41,11 +42,12 @@ def add_cors_header(response):
 
 #api.add_resource(SinkList, '/sinks')
 #api.add_resource(HubList, '/hubs')  #for when I've got multi-device synchronized playing. For now, only report the self.
-#api.add_resource(Control, '/control')  #For starting/stopping connections
+api.add_resource(Control, '/control')  #For starting/stopping connections
 
 
 api.add_resource(DeviceList, '/devices')
 api.add_resource(Device, '/devices/<int:deviceId>')
+api.add_resource(DeviceScan, '/devices/scan', resource_class_kwargs={ 'bt_adapter' : ErsatzBluetoothAdapter()})
 
 
 

@@ -1,33 +1,15 @@
+from flask import jsonify
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
 
-from actions.DeviceAction import DeviceAction
 from models.DeviceModel import DeviceModel
 
 
 class Device(Resource):
-    putParser = reqparse.RequestParser()
-    putParser.add_argument('action', type=str, required=True,
-                           location='json',
-                           help='START, STOP, or RECONNECT')
-
-    @jwt_required
-    def put(self):
-        args = self.putParser.parse_args()
-        action = DeviceAction((args.action.lower()))
-        if DeviceAction.RECONNECT == action:
-            # reconnect to all
-            pass
-        elif DeviceAction.START == action:
-            # start connecting to all audio sinks in the current profile.
-            # (Don't, by default, connect to any)
-            pass
-        elif DeviceAction.STOP == action:
-            # disconnect from all audio sinks.
-            pass
-
-    def get(self):
-        # Get current status, Started/not.
+    def get(self, deviceId):
+        """
+        Get current status, Started/not.
+        :return:
+        """
         pass
 
 
@@ -38,6 +20,9 @@ class DeviceList(Resource):
 
 
 class DeviceScan(Resource):
+    def __init__(self, **kwargs):
+        self.bt_adapter = kwargs['bt_adapter']
+
     def get(self):
         """
         GET /devices/scan
@@ -45,3 +30,6 @@ class DeviceScan(Resource):
         Note: actually use an adapter/client, to abstract that away.
         :return:
         """
+        response = jsonify(self.bt_adapter.list_bt_devices())
+        response.status_code = 200
+        return response

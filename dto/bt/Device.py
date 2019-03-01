@@ -14,6 +14,10 @@ class Device:
         self.name = name
         self.nickname = nickname
 
+    @classmethod
+    def from_device_model(cls, device_model):
+        return Device(device_model.addr, device_model.name, device_model.nickname)
+
     def __json__(self):
         return {
             'address': self.address,

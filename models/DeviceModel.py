@@ -9,10 +9,10 @@ class DeviceModel(db.Model):
     name = db.Column(db.String(80))  # reported name
     addr = db.Column(db.String(80), nullable=False, unique=True)  # mac addr
 
-    def __init__(self, nickname, name, addr):
+    def __init__(self, address, name, nickname):
         self.nickname = nickname
         self.name = name
-        self.addr = addr
+        self.addr = address
 
     def save_to_db(self):
         db.session.add(self)
@@ -24,11 +24,11 @@ class DeviceModel(db.Model):
 
     @classmethod
     def find_by_nickname(cls, _nickname):
-        return cls.query_filter_by(nickname=_nickname)
+        return cls.query.filter_by(nickname=_nickname)
 
     @classmethod
     def find_by_addr(cls, _addr):
-        return cls.query_filter_by(addr=_addr).first()
+        return cls.query.filter_by(addr=_addr).first()
 
     @classmethod
     def find_by_id(cls, _id):

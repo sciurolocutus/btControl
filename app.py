@@ -46,7 +46,7 @@ api.add_resource(Control, '/control')  #For starting/stopping connections
 
 
 api.add_resource(DeviceList, '/devices')
-api.add_resource(Device, '/devices/<int:deviceId>')
+api.add_resource(Device, '/devices/<string:device_address>')
 api.add_resource(DeviceScan, '/devices/scan', resource_class_kwargs={ 'bt_adapter' : ErsatzBluetoothAdapter()})
 
 
